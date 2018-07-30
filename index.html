@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CoffeeRun</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+    <div class="main">
+        <h1>CoffeeRun</h1>
+        <form class="form" action="">
+            <fieldset class="form-box">
+                <label>
+                    Coffee Order
+                    <input type="text" name="order">
+                </label> 
+                <label>
+                    Email address:
+                    <input type="email" placeholder="dr@who.com" size="60" name="email">
+                </label>
+                <label>
+                    <input type="radio" name="size" value="short">
+                    Short
+                </label>
+                <label>
+                    <input type="radio" name="size" value="tall">
+                    Tall
+                </label>
+                <label>
+                    <input type="radio" name="size" value="grande">
+                    Grande
+                </label>
+                <label>
+                    Flavor Shot:
+                    <select name="shots">
+                        <option value="none">None</option>
+                        <option value="blackberry">Blackberry</option>
+                        <option value="mintLeaf">Mint-Leaf</option>
+                        <option value="rosemary">Rosemary</option>
+                        <option value="bbq">BBQ</option>
+                    </select>
+                </label>
+                <label>
+                    Caffeine Rating
+                    <input type="range" class="start" name="caffeine" min="0" max="50">
+                </label>
+                <div class="buttons">
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                </div> 
+            </fieldset>
+        </form>
+        <fieldset class="results">
+        </fieldset>
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
