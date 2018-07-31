@@ -11,7 +11,7 @@
     <div class="main">
         <h1>CoffeeRun</h1>
         <form class="form" action="">
-            <fieldset class="form-box">
+            <div class="form-box">
                 <label>
                     Coffee Order
                     <input type="text" name="order">
@@ -21,7 +21,7 @@
                     <input type="email" placeholder="dr@who.com" size="60" name="email">
                 </label>
                 <label>
-                    <input type="radio" name="size" value="short">
+                    <input type="radio" name="size" value="short" checked>
                     Short
                 </label>
                 <label>
@@ -37,7 +37,7 @@
                     <select name="shots">
                         <option value="none">None</option>
                         <option value="blackberry">Blackberry</option>
-                        <option value="mintLeaf">Mint-Leaf</option>
+                        <option value="mint leaf">Mint-Leaf</option>
                         <option value="rosemary">Rosemary</option>
                         <option value="bbq">BBQ</option>
                     </select>
@@ -50,10 +50,10 @@
                     <button type="submit">Submit</button>
                     <button type="reset">Reset</button>
                 </div> 
-            </fieldset>
+            </div>
         </form>
-        <fieldset class="results">
-        </fieldset>
+        <ul class="results">
+        </ul>
     </div>
     <script src="scripts/main.js"></script>
 </body>

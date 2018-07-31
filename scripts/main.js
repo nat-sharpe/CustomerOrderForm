@@ -1,35 +1,76 @@
-var formBox = document.querySelector('.form');
-var results = document.querySelector('.results')
 
-var order = document.querySelector('[name="order"]');
-var email = document.querySelector('[name="email"]');
-var size = document.querySelector('[name="size"]:checked');
-var shots = document.querySelector('[name="shots"]');
-var caffeine = document.querySelector('[name="caffeine"]');
+var orderForm = document.querySelector('.form');
+var allOrders = [];
 
 
-formBox.addEventListener('submit', function(clickedSubmit){
-    clickedSubmit.preventDefault();
+var storeOrders = function () {
+    localStorage.setItem('orders', JSON.stringify(allOrders));
+    var oldOrders = JSON.parse(localStorage.getItem('orders'));
+    console.log(oldOrders);
 
-    var row1 = document.createElement("li");
-    results.appendChild(row1);
-    row1.textContent = order.value;
+};
 
-    var row2 = document.createElement("li");
-    results.appendChild(row2);
-    row2.textContent = email.value;
 
-    var row3 = document.createElement("li");
-    results.appendChild(row3);
-    size.setAttribute("checked");
-    console.log(size.value)
-    row3.textContent = size.value;
 
-    var row4 = document.createElement("li");
-    results.appendChild(row4);
-    row3.textContent = shots.value;
+var printOrder = function (order) {
+    var orderList = document.querySelector('.results')
 
-    var row5 = document.createElement("li");
-    results.appendChild(row5);
-    row3.textContent = caffeine.value;
-})
+    var currentOrder = document.createElement("ul");
+    orderList.appendChild(currentOrder);
+
+    var drink = document.createElement("li");
+    var email = document.createElement("li");
+    var size = document.createElement("li");
+    var shot = document.createElement("li");
+    var caffeine = document.createElement("li");
+    var completed = document.createElement("button");
+
+    currentOrder.appendChild(drink);
+    drink.textContent = order['drink'];
+
+    currentOrder.appendChild(email);
+    email.textContent = order['email'];
+
+    currentOrder.appendChild(size);
+    size.textContent = order['size'];
+
+    currentOrder.appendChild(shot);
+    shot.textContent = order['shot'];
+
+    currentOrder.appendChild(caffeine);
+    caffeine.textContent = order['caffeine'];
+
+    currentOrder.appendChild(completed);
+    completed.textContent = 'Completed';
+
+    var removeOrder = function () {
+        orderList.removeChild(currentOrder);
+    };
+
+    completed.addEventListener('click', removeOrder);
+
+};
+
+orderForm.addEventListener('submit', function(event){
+    event.preventDefault();
+    
+    var currentDrink = document.querySelector('[name="order"]');
+    var currentEmail = document.querySelector('[name="email"]');
+    var currentSize = document.querySelector('[name="size"]:checked');
+    var currentShot = document.querySelector('[name="shots"]');
+    var currentCaffeine = document.querySelector('[name="caffeine"]');
+
+   var newOrder = {'drink': currentDrink.value,
+    'email': currentEmail.value,
+    'size': currentSize.value,
+    'shot': currentShot.value,
+    'caffeine': currentCaffeine.value
+    };
+   
+    allOrders.push(newOrder);
+    storeOrders();
+    printOrder(newOrder);
+
+});
+
+
