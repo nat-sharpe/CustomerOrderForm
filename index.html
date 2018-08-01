@@ -9,16 +9,16 @@
 </head>
 <body>
     <div class="main">
-        <h1>CoffeeRun</h1>
+        <h1 class=title>CoffeeRun</h1>
         <form class="form" action="">
             <div class="form-box">
                 <label>
                     Type of Coffee
-                    <input type="text" name="order" required>
+                    <input type="text" name="order" size="40px" required>
                 </label> 
                 <label>
                     Email address:
-                    <input type="email" placeholder="dr@who.com" size="60" name="email" required>
+                    <input type="email" placeholder="dr@who.com" size="40px" name="email" required>
                 </label>
                 <label>
                     <input type="radio" name="size" value="short">
@@ -43,13 +43,13 @@
                     </select>
                 </label>
                 <label>
-                    Caffeine Rating
+                    Caffeine strength
                     <input type="range" class="start" name="caffeine" min="0" max="50">
                 </label>
-                <label>
+                <p>
                     <input type="checkbox" name="waiver" required>
-                    I swear I will never not drink coffee.
-                </label>
+                    I solemnly swear that I am up to no good.
+                </p>
                 <div class="buttons">
                     <button type="submit">Submit</button>
                     <button type="reset">Reset</button>

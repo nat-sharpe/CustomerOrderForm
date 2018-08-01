@@ -37,45 +37,31 @@ var getData = function () {
 
 var printOrder = function (order) {
     var results = document.querySelector('.results')
+    var currentOrder = document.createElement("div");
+    currentOrder.classList.add('new-order');
 
-    var currentOrder = document.createElement("ul");
-
-    var drink = document.createElement("li");
-    var email = document.createElement("li");
-    var size = document.createElement("li");
-    var shot = document.createElement("li");
-    var caffeine = document.createElement("li");
     var completed = document.createElement("button");
-
-    drink.textContent = order.coffee;
-    email.textContent = order.emailAddress;
-    size.textContent = order.size;
-    shot.textContent = order.flavor;
-    caffeine.textContent = order.strength;
+    var orderSheet = document.createElement("p");
+    var orderSheet2 = document.createElement("p");
+    orderSheet.textContent = `Customer ordered a ${order.size} ${order.coffee} with ${order.strength}mg of caffeine and a ${order.flavor} flavor shot.`
+    orderSheet2.textContent = `Send receipt to ${order.emailAddress}.`
     completed.textContent = 'Completed';
 
-    currentOrder.appendChild(drink);
-    currentOrder.appendChild(email);
-    currentOrder.appendChild(size);
-    currentOrder.appendChild(shot);
-    currentOrder.appendChild(caffeine);
+    currentOrder.appendChild(orderSheet);
+    currentOrder.appendChild(orderSheet2);
     currentOrder.appendChild(completed);
 
-    console.log()
     results.appendChild(currentOrder);
 
-
     var removeOrder = function () {
-        results.removeChild(currentOrder);
+        currentOrder.classList.add('green');
+        setTimeout(function () {results.removeChild(currentOrder)}, 2000);
         deleteOrder(order);
     };
 
     completed.addEventListener('click', removeOrder);
 };
 
-// var populate = function () {
-//     orderList.forEach(printOrder)
-// };
 
 var submit = function (event) {
     event.preventDefault();
@@ -100,6 +86,7 @@ var submit = function (event) {
 };
 
 orderForm.addEventListener('submit', submit);
+
 
 
 getData();

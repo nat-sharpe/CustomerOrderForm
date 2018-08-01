@@ -4,10 +4,17 @@ body {
     justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
+    background-color: black;
 }
 
+.title {
+    margin-left: 10px;
+    margin-bottom: 2px;
+    color: lightgoldenrodyellow;
+    margin-top: 40px;
+}
 .main {
-    width: 30%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -16,8 +23,12 @@ body {
 .form-box, .results {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
     background-color: lightgoldenrodyellow;
-    }
+    border-radius: 10px;
+    margin: 10px;
+}
 
 input {
     width: 100%;
@@ -27,8 +38,28 @@ input {
 
 button {
     font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: green; 
 }
 
 label {
     margin-bottom: 20px;
 }
+
+
+
+.new-order {
+    background-color: lightgoldenrodyellow;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.green {
+    background-color: green;
+}
+
+
