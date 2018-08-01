@@ -13,7 +13,7 @@
         <form class="form" action="">
             <div class="form-box">
                 <label>
-                    Coffee Order
+                    Type of Coffee
                     <input type="text" name="order" required>
                 </label> 
                 <label>
@@ -21,7 +21,7 @@
                     <input type="email" placeholder="dr@who.com" size="60" name="email" required>
                 </label>
                 <label>
-                    <input type="radio" name="size" value="short" checked>
+                    <input type="radio" name="size" value="short">
                     Short
                 </label>
                 <label>
@@ -37,7 +37,7 @@
                     <select name="shots">
                         <option value="none">None</option>
                         <option value="blackberry">Blackberry</option>
-                        <option value="mint leaf">Mint-Leaf</option>
+                        <option value="mint">Mint</option>
                         <option value="rosemary">Rosemary</option>
                         <option value="bbq">BBQ</option>
                     </select>
@@ -45,6 +45,10 @@
                 <label>
                     Caffeine Rating
                     <input type="range" class="start" name="caffeine" min="0" max="50">
+                </label>
+                <label>
+                    <input type="checkbox" name="waiver" required>
+                    I swear I will never not drink coffee.
                 </label>
                 <div class="buttons">
                     <button type="submit">Submit</button>
@@ -55,6 +59,7 @@
         <div class="results">
         </div>
     </div>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

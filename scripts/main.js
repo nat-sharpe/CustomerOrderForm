@@ -1,16 +1,44 @@
-
 var orderForm = document.querySelector('.form');
-var allOrders = JSON.parse(localStorage.getItem('orders'));
-console.log(allOrders);
-// var i = 0;
+var URL = 'https://dc-coffeerun.herokuapp.com/api/coffeeorders';
+var orderList = [];
 
 
-var buildOrder = function (order) {
-    // var currentI = i;
-    var orderList = document.querySelector('.results')
+var postOrder = function (order) {
+    $.ajax(URL, {
+        method: 'POST',
+        data: order,
+        success: function () {
+            printOrder(order);
+        }
+    });
+};
+
+var deleteOrder = function (order) {
+    var emailAddress = order.emailAddress;
+    $.ajax(`https://dc-coffeerun.herokuapp.com/api/coffeeorders/${emailAddress}`, {
+        method: 'DELETE',
+        data: order
+    });
+};
+
+var getData = function () {
+    $.ajax(URL, {
+        success: function(coffeeOrders) {
+            Object.values(coffeeOrders).forEach(function(order) {
+                printOrder(order);
+            });
+            console.log(coffeeOrders)
+        },
+        error: function() {
+            console.log('boom')
+        }
+    });
+}
+
+var printOrder = function (order) {
+    var results = document.querySelector('.results')
 
     var currentOrder = document.createElement("ul");
-    orderList.appendChild(currentOrder);
 
     var drink = document.createElement("li");
     var email = document.createElement("li");
@@ -19,58 +47,63 @@ var buildOrder = function (order) {
     var caffeine = document.createElement("li");
     var completed = document.createElement("button");
 
-    currentOrder.appendChild(drink);
-    drink.textContent = order['drink'];
-
-    currentOrder.appendChild(email);
-    email.textContent = order['email'];
-
-    currentOrder.appendChild(size);
-    size.textContent = order['size'];
-
-    currentOrder.appendChild(shot);
-    shot.textContent = order['shot'];
-
-    currentOrder.appendChild(caffeine);
-    caffeine.textContent = order['caffeine'];
-
-    currentOrder.appendChild(completed);
+    drink.textContent = order.coffee;
+    email.textContent = order.emailAddress;
+    size.textContent = order.size;
+    shot.textContent = order.flavor;
+    caffeine.textContent = order.strength;
     completed.textContent = 'Completed';
 
-    // allOrders['order' + currentI] = newOrder;
+    currentOrder.appendChild(drink);
+    currentOrder.appendChild(email);
+    currentOrder.appendChild(size);
+    currentOrder.appendChild(shot);
+    currentOrder.appendChild(caffeine);
+    currentOrder.appendChild(completed);
+
+    console.log()
+    results.appendChild(currentOrder);
+
 
     var removeOrder = function () {
-        orderList.removeChild(currentOrder);
-
+        results.removeChild(currentOrder);
+        deleteOrder(order);
     };
 
     completed.addEventListener('click', removeOrder);
-
 };
 
+// var populate = function () {
+//     orderList.forEach(printOrder)
+// };
 
-orderForm.addEventListener('submit', function(event){
+var submit = function (event) {
     event.preventDefault();
     
-    var currentDrink = document.querySelector('[name="order"]');
-    var currentEmail = document.querySelector('[name="email"]');
-    var currentSize = document.querySelector('[name="size"]:checked');
-    var currentShot = document.querySelector('[name="shots"]');
-    var currentCaffeine = document.querySelector('[name="caffeine"]');
+    var coffee = document.querySelector('[name="order"]');
+    var emailAddress = document.querySelector('[name="email"]');
+    var size = document.querySelector('[name="size"]:checked');
+    var flavor = document.querySelector('[name="shots"]');
+    var strength = document.querySelector('[name="caffeine"]');
 
     var newOrder = {
-        'drink': currentDrink.value,
-        'email': currentEmail.value,
-        'size': currentSize.value,
-        'shot': currentShot.value,
-        'caffeine': currentCaffeine.value
+        'coffee': coffee.value,
+        'emailAddress': emailAddress.value,
+        'size': size.value,
+        'flavor': flavor.value,
+        'strength': strength.value
     };
     
-    allOrders.push(newOrder);
-    buildOrder(newOrder);
+    orderList.push(newOrder);
 
-    localStorage.setItem('orders', JSON.stringify(allOrders));
+    postOrder(newOrder);
+};
 
-});
+orderForm.addEventListener('submit', submit);
+
+
+getData();
+
+
 
 
