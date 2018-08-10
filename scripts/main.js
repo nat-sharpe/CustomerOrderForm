@@ -1,39 +1,35 @@
 var orderForm = document.querySelector('.form');
-var URL = 'https://dc-coffeerun.herokuapp.com/api/coffeeorders';
+var urlAPI = 'https://dc-coffeerun.herokuapp.com/api/coffeeorders/';
 var orderList = [];
 
 
 var postOrder = function (order) {
-    $.ajax(URL, {
-        method: 'POST',
-        data: order,
-        success: function () {
-            printOrder(order);
-        }
+    printOrder(order);
+    fetch(urlAPI, {
+        method: 'post',
+        headers: {'content-type':'application/json'},
+        body: JSON.stringify(order)
     });
 };
 
 var deleteOrder = function (order) {
     var emailAddress = order.emailAddress;
-    $.ajax(`https://dc-coffeerun.herokuapp.com/api/coffeeorders/${emailAddress}`, {
-        method: 'DELETE',
-        data: order
+    fetch((urlAPI + emailAddress), {
+        method: 'delete'
     });
 };
 
 var getData = function () {
-    $.ajax(URL, {
-        success: function(coffeeOrders) {
-            Object.values(coffeeOrders).forEach(function(order) {
+    var coffeOrdersPromise = fetch(urlAPI);
+    coffeOrdersPromise.then(function(response) {
+        var toJSONPromise = response.json();
+        toJSONPromise.then(function(allOrders) {
+            Object.values(allOrders).forEach(function(order) {
                 printOrder(order);
             });
-            console.log(coffeeOrders)
-        },
-        error: function() {
-            console.log('boom')
-        }
+        });
     });
-}
+};
 
 var printOrder = function (order) {
     var results = document.querySelector('.results')
@@ -65,13 +61,11 @@ var printOrder = function (order) {
 
 var submit = function (event) {
     event.preventDefault();
-    
     var coffee = document.querySelector('[name="order"]');
     var emailAddress = document.querySelector('[name="email"]');
     var size = document.querySelector('[name="size"]:checked');
     var flavor = document.querySelector('[name="shots"]');
     var strength = document.querySelector('[name="caffeine"]');
-
     var newOrder = {
         'coffee': coffee.value,
         'emailAddress': emailAddress.value,
@@ -79,18 +73,10 @@ var submit = function (event) {
         'flavor': flavor.value,
         'strength': strength.value
     };
-    
     orderList.push(newOrder);
-
     postOrder(newOrder);
 };
 
 orderForm.addEventListener('submit', submit);
 
-
-
 getData();
-
-
-
-
