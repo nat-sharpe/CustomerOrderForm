@@ -4,7 +4,7 @@ body {
     justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    background-color: black;
+    background-color: darkslategrey;
 }
 
 .title {
@@ -48,8 +48,6 @@ button:hover {
 label {
     margin-bottom: 20px;
 }
-
-
 
 .new-order {
     background-color: lightgoldenrodyellow;

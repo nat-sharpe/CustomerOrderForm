@@ -22,17 +22,29 @@ var deleteOrder = function (order) {
 };
 
 var getData = function () {
-    $.ajax(URL, {
-        success: function(coffeeOrders) {
-            Object.values(coffeeOrders).forEach(function(order) {
+    var coffeOrdersPromise = fetch(URL);
+
+    coffeOrdersPromise.then(function(response) {
+        var toJSONPromise = response.json();
+        toJSONPromise.then(function(allOrders) {
+            Object.values(allOrders).forEach(function(order) {
                 printOrder(order);
-            });
-            console.log(coffeeOrders)
-        },
-        error: function() {
-            console.log('boom')
-        }
+            })
+            console.log(allOrders);
+        });
     });
+
+    // $.ajax(URL, {
+    //     success: function(coffeeOrders) {
+    //         Object.values(coffeeOrders).forEach(function(order) {
+    //             printOrder(order);
+    //         });
+    //         console.log(coffeeOrders)
+    //     },
+    //     error: function() {
+    //         console.log('boom')
+    //     }
+    // });
 }
 
 var printOrder = function (order) {
@@ -87,10 +99,4 @@ var submit = function (event) {
 
 orderForm.addEventListener('submit', submit);
 
-
-
 getData();
-
-
-
-
